@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>About</title>
+        <meta name="description" content="This Is My About Page">
+        <link rel="stylesheet" href="{% static 'pytest/css/style.css' %}">
+        <link rel="icon" href="https://cdn.favicon.io/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="container">
+            <h1>About Us</h1>
+            
+            <div class="content">
+                <h3>We are a team of passionate developers dedicated to creating innovative web solutions that make a difference.</h3>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-code feature-icon"></i>
+                    <div class="feature-title">Clean Code</div>
+                    <div class="feature-description">We write maintainable, efficient, and well-documented code.</div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <div class="feature-title">Responsive Design</div>
+                    <div class="feature-description">Our applications work seamlessly across all devices.</div>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <div class="feature-title">Secure Solutions</div>
+                    <div class="feature-description">Security is at the core of everything we build.</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="{% url 'home' %}" class="button secondary">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="{% url 'contact' %}" class="button">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+

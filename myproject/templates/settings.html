@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Settings - DevTools</title>
+        <meta name="description" content="Account Settings">
+        <link rel="stylesheet" href="{% static 'pytest/css/style.css' %}">
+        <link rel="icon" type="image/png" href="{% static 'pytest/images/favico.png' %}">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-container">
+                <a href="{% url 'home' %}" class="brand">
+                    <img src="{% static 'pytest/images/logo.png' %}" alt="DevTools" class="brand-logo">
+                    <span class="brand-name">DevTools</span>
+                </a>
+                
+                {% if user.is_authenticated %}
+                <div class="profile-section">
+                    <div class="profile-menu">
+                        <button class="profile-trigger">
+                            {% if user.pic %}
+                                <img src="{{ user.pic.url }}" alt="Profile" class="profile-image">
+                            {% else %}
+                                <div class="profile-initial">{{ user.first_name|make_list|first|upper }}</div>
+                            {% endif %}
+                            <span class="profile-name">{{ user.first_name }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="profile-dropdown">
+                            <a href="{% url 'home' %}" class="dropdown-item">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="{% url 'profile' %}" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="settings-page">
+                <div class="settings-header">
+                    <h1>Account Settings</h1>
+                    <p>Manage your account preferences</p>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="settings-content">
+                    <div class="settings-card">
+                        <h2>Account Information</h2>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <p class="settings-value">{{ user.email }}</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <p class="settings-value">{{ user.username }}</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Account Created</label>
+                                <p class="settings-value">{{ user.date_joined|date:"F j, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card danger-zone">
+                        <h2>Danger Zone</h2>
+                        <p class="danger-text">Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="delete-button" onclick="confirmDelete()">
+                            <i class="fas fa-trash-alt"></i>
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Account Form -->
+        <form id="deleteForm" action="{% url 'delete_account' %}" method="POST" style="display: none;">
+            {% csrf_token %}
+        </form>
+
+        <script>
+        function confirmDelete() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                document.getElementById('deleteForm').submit();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileTrigger = document.querySelector('.profile-trigger');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            
+            if (profileTrigger && profileDropdown) {
+                // Toggle dropdown on trigger click
+                profileTrigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    profileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!profileDropdown.contains(e.target) && !profileTrigger.contains(e.target)) {
+                        profileTrigger.classList.remove('active');
+                        profileDropdown.classList.remove('active');
+                    }
+                });
+
+                // Close dropdown on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        profileTrigger.classList.remove('active');
+                        profileDropdown.classList.remove('active');
+                    }
+                });
+            }
+        });
+        </script>
+    </body>
+</html> 

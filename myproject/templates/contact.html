@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Contact</title>
+        <meta name="description" content="This Is My Contact Page">
+        <link rel="stylesheet" href="{% static 'pytest/css/style.css' %}">
+        <link rel="icon" href="https://cdn.favicon.io/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Contact Us</h1>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">abdullrahmanmoez@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">0123456789</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-label">Address</div>
+                        <div class="contact-value">123 Main St, Cairo, Egypt</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="{% url 'home' %}" class="button secondary">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="mailto:abdullrahmanmoez@gmail.com" class="button">
+                    <i class="fas fa-paper-plane"></i> Send Email
+                </a>
+                <a href="{% url 'about' %}" class="button secondary">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+
+<!--
+This Is My Django Project
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Calculator</title>
+        <meta name="description" content="This Is the Simple Calculator">
+        <link rel="stylesheet" href="{% static 'pytest/css/style.css' %}">
+        <link rel="icon" href="https://cdn.favicon.io/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Calculator</h1>
+            
+            <form method="post" action="{% url 'calculator' %}" class="calculator-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="number" name="num1" id="num1" placeholder="Enter First Number" step="any" required>
+                </div>
+                <div class="input-group">
+                    <input type="number" name="num2" id="num2" placeholder="Enter Second Number" step="any" required>
+                </div>
+                <div class="input-group">
+                    <select name="operation" id="operation" required>
+                        <option value="" disabled selected>Select Operation</option>
+                        <option value="+">Addition (+)</option>
+                        <option value="-">Subtraction (-)</option>
+                        <option value="*">Multiplication (×)</option>
+                        <option value="/">Division (÷)</option>
+                        <option value="%">Modulus (%)</option>
+                        <option value="**">Power (^)</option>
+                    </select>
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" class="calc-button">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculate</span>
+                    </button>
+                    <button type="reset" class="calc-button reset">
+                        <i class="fas fa-undo"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </form>
+
+            {% if result %}
+            <div class="result-container">
+                <h2>Result</h2>
+                <div class="result-value">
+                    {{ result }}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="{% url 'home' %}" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <a href="mailto:Abdullrahmanmoez@gmail.com?subject=Calculator%20Issue%20Report" class="report-link">
+                    <i class="fas fa-flag"></i>Report an Issue
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

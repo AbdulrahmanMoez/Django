@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+
+<!--
+This Is My Django Project
+-->
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Home</title>
+        <meta name="description" content="This Is My Django Project">
+        <link rel="stylesheet" href="{% static 'pytest/css/style.css' %}">
+        <link rel="icon" type="image/png" href="{% static 'pytest/images/favico.png' %}">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-container">
+                <a href="{% url 'home' %}" class="brand">
+                    <img src="{% static 'pytest/images/logo.png' %}" alt="DevTools" class="brand-logo">
+                    <span class="brand-name">DevTools</span>
+                </a>
+                
+                {% if user.is_authenticated %}
+                <div class="profile-section">
+                    <div class="profile-menu">
+                        <button class="profile-trigger">
+                            {% if user.pic %}
+                                <img src="{{ user.pic.url }}" alt="Profile" class="profile-image">
+                            {% else %}
+                                <div class="profile-initial">{{ user.first_name|make_list|first|upper }}</div>
+                            {% endif %}
+                            <span class="profile-name">{{ user.first_name.capitalize }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="profile-dropdown">
+                            <a href="{% url 'profile' %}" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="{% url 'settings' %}" class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'logout' %}" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <div class="container">
+            {% if user.is_authenticated %}
+                <div class="welcome-section">
+                    <div class="welcome-content">
+                        <h1 class="welcome-message">Welcome, {{ user.first_name.capitalize }}!</h1>
+                        <p class="welcome-subtitle">Explore our latest services and tools</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="hero-section">
+                    <h1>Discover Our Development Tools</h1>
+                    <p class="hero-subtitle">Powerful solutions for modern development challenges</p>
+                    <div class="auth-actions">
+                        <a href="{% url 'login' %}" class="auth-button primary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Sign In</span>
+                        </a>
+                        <a href="{% url 'register' %}" class="auth-button secondary">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Create Account</span>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+            <section class="services-section">
+                <div class="section-header">
+                    <h2>Our Services</h2>
+                    <p class="section-subtitle">Discover our powerful development tools and utilities</p>
+                </div>
+                
+                <div class="services-grid">
+                    {% for service in services %}
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                        </div>
+                        <div class="service-content">
+                            <div class="service-header">
+                                <h3 class="service-title">{{ service.name }}</h3>
+                                {% if user.is_authenticated %}
+                                    {% if service.available %}
+                                        <span class="status-badge available">Available</span>
+                                    {% else %}
+                                        <span class="status-badge">Coming Soon</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <p class="service-description">{{ service.description }}</p> 
+                            <div class="service-actions">
+                                {% if user.is_authenticated and service.available %}
+                                    <a href="{{ service.url }}" class="action-button primary">
+                                        <i class="fas fa-rocket"></i>
+                                        <span>Launch App</span>
+                                    </a>
+                                {% endif %}
+                                <a href="{{ service.github_url }}" class="action-button secondary">
+                                    <i class="fab fa-github"></i>
+                                    <span>View Source</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-actions">
+                    <a href="{% url 'about' %}" class="footer-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About Us</span>
+                    </a>
+                    <a href="{% url 'contact' %}" class="footer-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                    <a href="{% static 'pytest/docs/Fundamentals_Of_OOP.pdf' %}" class="footer-link" target="_blank">
+                        <i class="fas fa-book"></i>
+                        <span>Documentation</span>
+                    </a>
+                </div>
+            </footer>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const profileTrigger = document.querySelector('.profile-trigger');
+                const profileDropdown = document.querySelector('.profile-dropdown');
+                
+                // Toggle dropdown on trigger click
+                profileTrigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    profileDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!profileDropdown.contains(e.target) && !profileTrigger.contains(e.target)) {
+                        profileTrigger.classList.remove('active');
+                        profileDropdown.classList.remove('active');
+                    }
+                });
+
+                // Close dropdown on escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        profileTrigger.classList.remove('active');
+                        profileDropdown.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

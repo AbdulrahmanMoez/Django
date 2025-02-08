@@ -1,0 +1,182 @@
+/* home.css */
+
+/* Hero Section (for unauthenticated users) */
+.hero-section {
+    background-image: url('../images/hero-bg.jpg'); /* Ensure you have a suitable image */
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.hero-section h1,
+.hero-section p,
+.hero-section .auth-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-section .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+/* Auth actions in hero section */
+.auth-actions .auth-button {
+    margin: 0 10px;
+    padding: 12px 25px;
+    font-size: 1rem;
+}
+
+.auth-actions .primary {
+    background: var(--primary-color);
+}
+
+.auth-actions .secondary {
+    background: var(--secondary-color);
+}
+
+/* Welcome Section (for authenticated users) */
+.welcome-section {
+    background: #fff;
+    padding: 50px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.welcome-section .welcome-message {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.welcome-section .welcome-subtitle {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+}
+
+/* Services Section */
+.services-section {
+    padding: 60px 0;
+    background: #fff;
+}
+
+.services-section .section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.services-section .section-header p {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--dark-gray);
+    margin-bottom: 40px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    background: var(--background-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.service-image img {
+    width: 100%;
+    height: auto;
+}
+
+.service-content {
+    padding: 20px;
+}
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.service-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.status-badge.available {
+    background: var(--primary-color);
+}
+
+/* Service actions */
+.service-actions {
+    margin-top: 15px;
+}
+
+.service-actions .action-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border: none;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.service-actions .action-button.secondary {
+    background: var(--secondary-color);
+}
+
+.service-actions .action-button:hover {
+    background: var(--accent-color);
+}
+
+/* Footer Overrides for home */
+.page-footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 40px;
+} 
