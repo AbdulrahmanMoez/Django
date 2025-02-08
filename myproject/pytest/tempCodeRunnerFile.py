@@ -1,1 +1,0 @@
-cal.calculator(34, "+", 23)
